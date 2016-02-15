@@ -330,6 +330,19 @@ namespace WebApi.ServiceInterface
             catch (Exception ex) { cr(ecr, ex); }
             return ecr;
         }
+								public ServiceModel.Freight.ViewPDF_Logic viewPDF_Logic { get; set; }
+								public object Get(ServiceModel.Freight.ViewPDF request)
+								{
+												CommonResponse ecr = new CommonResponse();
+												ecr.initial();
+												try
+												{
+																ServiceInterface.Freight.PdfService ps = new ServiceInterface.Freight.PdfService();
+																ps.PS_View(auth, request, viewPDF_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
+												}
+												catch (Exception ex) { cr(ecr, ex); }
+												return ecr;
+								}
 								#endregion
 								#region Common
         public ServiceModel.Common.List_Rcbp1_Logic list_Rcbp1_Logic { get; set; }

@@ -29,4 +29,16 @@ namespace WebApi.ServiceModel
             strValue = connectionString;
         }
     }
+				public interface IWebAttachPath
+				{
+								string strAttachPath { get; set; }
+				}
+				public class WebAttachPathFactory : IWebAttachPath
+				{
+								public string strAttachPath { get; set; }
+								public WebAttachPathFactory(string attachPath)
+								{
+												strAttachPath = attachPath;
+								}
+				}
 }

@@ -105,6 +105,7 @@
     <Compile Include="Tables\Rcvy1.cs" />
     <Compile Include="Tables\Jmjt1.cs" />
     <Compile Include="Tables\Rcsm1.cs" />
+    <Compile Include="Tables\ViewPDF_Ivcr.cs" />
     <Compile Include="Tables\Smsa2.cs" />
     <Compile Include="Tables\Smsa1.cs" />
     <Compile Include="Tables\Tracking_OrderNo.cs" />

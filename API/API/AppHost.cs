@@ -22,7 +22,8 @@ namespace WebApi
     public class AppHost : AppHostBase
     {
         private static string ver = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        private static string strSecretKey;
+								private static string strSecretKey;
+								private static string strWebAttachPath;
         public AppHost()
             : base("Web Api v" + ver, typeof(ApiServices).Assembly)
         {
@@ -60,6 +61,8 @@ namespace WebApi
             container.Register<WebApi.ServiceModel.IConnectString>(connectString);
             var secretKey = new WebApi.ServiceModel.SecretKeyFactory(strSecretKey);
             container.Register<WebApi.ServiceModel.ISecretKey>(secretKey);
+												var webAttachPath = new WebApi.ServiceModel.WebAttachPathFactory(strWebAttachPath);
+												container.Register<WebApi.ServiceModel.IWebAttachPath>(webAttachPath);
             //Auth
             container.RegisterAutoWired<WebApi.ServiceModel.Auth>();
             //WMS
@@ -84,7 +87,8 @@ namespace WebApi
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Smsa_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Plvi_Logic>();
             container.RegisterAutoWired<WebApi.ServiceModel.Freight.Rcvy_Logic>();
-            container.RegisterAutoWired<WebApi.ServiceModel.Freight.Tracking_Logic>();
+												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Tracking_Logic>();
+												container.RegisterAutoWired<WebApi.ServiceModel.Freight.ViewPDF_Logic>();
             //Common
 												container.RegisterAutoWired<WebApi.ServiceModel.Common.List_Rcbp1_Logic>();
         }
@@ -162,7 +166,8 @@ namespace WebApi
             if (string.IsNullOrEmpty(strAppSetting))
             {
                 strAppSetting = System.Configuration.ConfigurationManager.AppSettings["DataBase"];
-                strSecretKey = System.Configuration.ConfigurationManager.AppSettings["SecretKey"];
+																strSecretKey = System.Configuration.ConfigurationManager.AppSettings["SecretKey"];
+																strWebAttachPath = System.Configuration.ConfigurationManager.AppSettings["WebAttachPath"];
                 strDataBase = strAppSetting.Split(',');
                 int intCnt;
                 for (intCnt = 0; intCnt <= strDataBase.Length - 1; intCnt++)
