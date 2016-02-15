@@ -83,7 +83,22 @@ namespace WebApi.ServiceModel.Freight
 																				}
 																				using (var db = DbConnectionFactory.OpenDbConnection())
 																				{
-																								string strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strTrxNos + ")";
+																								string strSQL = "";
+																								switch(request.FolderName)
+																								{
+																												case "ivcr1":
+																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strTrxNos + ")";
+																																break;
+																												case "jmjm1":
+																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strTrxNos + ")";
+																																break;
+																												case "slcu1":
+																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strTrxNos + ")";
+																																break;
+																												default :
+																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strTrxNos + ")";
+																																break;
+																								}
 																								Result = db.Select<ViewPDF_Ivcr>(strSQL);
 																				}
 																				foreach (ViewPDF_Ivcr vi in Result)
