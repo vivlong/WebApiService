@@ -10,17 +10,19 @@ using WebApi.ServiceModel.Tables;
 
 namespace WebApi.ServiceModel.Freight
 {
-				[Route("/freight/smsa1/count", "Get")]
-				[Route("/freight/smsa1/sps", "Get")]
-				[Route("/freight/smsa2/create/{TrxNo}", "Post")]
-				[Route("/freight/smsa2/update/{TrxNo}", "Post")]
-				[Route("/freight/smsa2/read/{TrxNo}", "Get")]
-				[Route("/freight/smsa2/delete/{TrxNo}", "Get")]
+				[Route("/freight/smsa1/count", "Get")]		//count?SalesmanName=
+				[Route("/freight/smsa1/sps", "Get")]				//sps?RecordCount= & SalesmanName=
+				[Route("/freight/smsa2/create", "Post")]
+				[Route("/freight/smsa2/update", "Post")]
+				[Route("/freight/smsa2/read", "Get")]			//read?TrxNo= (& LineItemNo= )
+				[Route("/freight/smsa2/delete", "Get")]	//delete?TrxNo= & LineItemNo=
 				public class Smsa : IReturn<CommonResponse>
     {
 								public string SalesmanName { get; set; }
 								public string RecordCount { get; set; }
 								public string TrxNo { get; set; }
+								public string LineItemNo { get; set; }
+								public Smsa2 smsa2 { get; set; }
     }
 				public class Smsa_Logic
     {
@@ -76,7 +78,74 @@ namespace WebApi.ServiceModel.Freight
 												{
 																using (var db = DbConnectionFactory.OpenDbConnection())
 																{
-																				Result = db.Select<Smsa2>("Select * From Smsa2 Where TrxNo=" + int.Parse(request.TrxNo));
+																				if (!string.IsNullOrEmpty(request.LineItemNo))
+																				{
+																								Result = db.Select<Smsa2>("Select * From Smsa2 Where TrxNo=" + int.Parse(request.TrxNo) + " And LineItemNo=" + int.Parse(request.LineItemNo));
+																				}
+																				else
+																				{
+																								Result = db.Select<Smsa2>("Select * From Smsa2 Where TrxNo=" + int.Parse(request.TrxNo));
+																				}
+																}
+												}
+												catch { throw; }
+												return Result;
+								}
+								public int Insert_Smsa2(Smsa request)
+								{
+												int Result = -1;
+												try
+												{
+																using (var db = DbConnectionFactory.OpenDbConnection())
+																{
+																				db.Insert(
+																								new Smsa2
+																								{
+																												TrxNo = request.smsa2.TrxNo,
+																												LineItemNo = request.smsa2.LineItemNo,
+																												DateTime = null,
+																												Action = request.smsa2.Action,
+																												Conclusion = request.smsa2.Conclusion,
+																												CustomerCode = request.smsa2.CustomerCode,
+																												CustomerName = request.smsa2.CustomerName,
+																												Description = request.smsa2.Description,
+																												Discussion = request.smsa2.Discussion,
+																												QuotationNo = request.smsa2.QuotationNo,
+																												Reference = request.smsa2.Reference,
+																												Remark = request.smsa2.Remark,
+																												Status = request.smsa2.Status
+																								}
+																				);
+																				Result = 1;
+																}
+												}
+												catch { throw; }
+												return Result;
+								}
+								public int Update_Smsa2(Smsa request)
+								{
+												int Result = -1;
+												try
+												{
+																using (var db = DbConnectionFactory.OpenDbConnection())
+																{
+																				Result = db.Update<Smsa2>(
+																								new
+																								{
+																												Action = request.smsa2.Action,
+																												Conclusion = request.smsa2.Conclusion,
+																												CustomerCode = request.smsa2.CustomerCode,
+																												CustomerName = request.smsa2.CustomerName,
+																												//DateTime = request.smsa2.DateTime,
+																												Description = request.smsa2.Description,
+																												Discussion = request.smsa2.Discussion,
+																												QuotationNo = request.smsa2.QuotationNo,
+																												Reference = request.smsa2.Reference,
+																												Remark = request.smsa2.Remark,
+																												Status = request.smsa2.Status
+																								},
+																								p => p.TrxNo == request.smsa2.TrxNo && p.LineItemNo == request.smsa2.LineItemNo
+																				);
 																}
 												}
 												catch { throw; }

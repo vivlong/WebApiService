@@ -24,9 +24,11 @@ namespace WebApi.ServiceInterface.Freight
 																}
 																else if (uri.IndexOf("/smsa2/create") > 0)
 																{
+																				ecr.data.results = logic.Insert_Smsa2(request);
 																}
 																else if (uri.IndexOf("/smsa2/update") > 0)
 																{
+																				ecr.data.results = logic.Update_Smsa2(request);
 																}
 																else if (uri.IndexOf("/smsa2/read") > 0)
 																{
