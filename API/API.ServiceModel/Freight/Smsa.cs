@@ -103,7 +103,7 @@ namespace WebApi.ServiceModel.Freight
 																								{
 																												TrxNo = request.smsa2.TrxNo,
 																												LineItemNo = request.smsa2.LineItemNo,
-																												DateTime = null,
+																												DateTime = DateTime.Now,
 																												Action = request.smsa2.Action,
 																												Conclusion = request.smsa2.Conclusion,
 																												CustomerCode = request.smsa2.CustomerCode,
