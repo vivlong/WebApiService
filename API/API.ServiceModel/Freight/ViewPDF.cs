@@ -22,7 +22,7 @@ namespace WebApi.ServiceModel.Freight
 								public IDbConnectionFactory DbConnectionFactory { get; set; }
 								public struct TrxNoPDFName
 								{
-												public string TrxNo;
+												public string Key;
 												public string FileName;
 								}
 								private List<TrxNoPDFName> tnPDF = null;
@@ -41,7 +41,7 @@ namespace WebApi.ServiceModel.Freight
 																				for (int i = 0; i <= diA.Length - 1; i++)
 																				{
 																								TrxNoPDFName tnn = new TrxNoPDFName();
-																								tnn.TrxNo = diA[i].Name;
+																								tnn.Key = diA[i].Name;
 																								FileInfo[] arrFi = diA[i].GetFiles();
 																								if (arrFi.Length > 0)
 																								{
@@ -61,7 +61,7 @@ namespace WebApi.ServiceModel.Freight
 								}
 								public object Get_List(ViewPDF request)
 								{
-												List<ViewPDF_Ivcr> Result = null;
+												object Result = null;
 												tnPDF = new List<TrxNoPDFName>();
 												string strPath = "";
 												try
@@ -73,13 +73,13 @@ namespace WebApi.ServiceModel.Freight
 																}
 																if (tnPDF.Count > 0)
 																{
-																				string strTrxNos = "";
+																				string strKeys = "";
 																				for (int i = 0; i <= tnPDF.Count - 1; i++)
 																				{
-																								strTrxNos = strTrxNos + tnPDF[i].TrxNo + ",";
+																								strKeys = strKeys + "'" + tnPDF[i].Key + "',";
 																				}
-																				if (strTrxNos.LastIndexOf(",").Equals(strTrxNos.Length-1)){
-																								strTrxNos = strTrxNos.Substring(0,strTrxNos.Length-1);
+																				if (strKeys.LastIndexOf(",").Equals(strKeys.Length-1)){
+																								strKeys = strKeys.Substring(0,strKeys.Length-1);
 																				}
 																				using (var db = DbConnectionFactory.OpenDbConnection())
 																				{
@@ -87,30 +87,42 @@ namespace WebApi.ServiceModel.Freight
 																								switch(request.FolderName)
 																								{
 																												case "ivcr1":
-																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strTrxNos + ")";
+																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strKeys + ")";
+																																List<ViewPDF_Ivcr> rIvcr = db.Select<ViewPDF_Ivcr>(strSQL);
+																																foreach (ViewPDF_Ivcr vi in rIvcr)
+																																{
+																																				for (int i = 0; i <= tnPDF.Count - 1; i++)
+																																				{
+																																								if (tnPDF[i].Key.Equals(vi.TrxNo.ToString()))
+																																								{
+																																												vi.FilePath = "./" + request.FolderName + "/eDoc/" + tnPDF[i].Key + "/" + tnPDF[i].FileName;
+																																												break;
+																																								}
+																																				}
+																																}
+																																Result = rIvcr;
 																																break;
 																												case "jmjm1":
-																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strTrxNos + ")";
+																																strSQL = "Select JobNo,JobDate,CustomerName,InvoiceLocalAmt From Jmjm1 Where JobNo in (" + strKeys + ")";
+																																List<ViewPDF_Jmjm> rJmjm = db.Select<ViewPDF_Jmjm>(strSQL);
+																																foreach (ViewPDF_Jmjm vi in rJmjm)
+																																{
+																																				for (int i = 0; i <= tnPDF.Count - 1; i++)
+																																				{
+																																								if (tnPDF[i].Key.Equals(vi.JobNo.ToString()))
+																																								{
+																																												vi.FilePath = "./" + request.FolderName + "/eDoc/" + tnPDF[i].Key + "/" + tnPDF[i].FileName;
+																																												break;
+																																								}
+																																				}
+																																}
+																																Result = rJmjm;
 																																break;
 																												case "slcu1":
-																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strTrxNos + ")";
-																																break;
-																												default :
-																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strTrxNos + ")";
+																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strKeys + ")";
 																																break;
 																								}
-																								Result = db.Select<ViewPDF_Ivcr>(strSQL);
-																				}
-																				foreach (ViewPDF_Ivcr vi in Result)
-																				{
-																								for(int i=0;i<= tnPDF.Count-1;i++){
-																												if (tnPDF[i].TrxNo.Equals(vi.TrxNo.ToString()))
-																												{
-																																vi.FilePath = "./" + request.FolderName + "/eDoc/" + tnPDF[i].TrxNo + "/" + tnPDF[i].FileName;
-																																break;
-																												}
-																								}
-																				}
+																				}																				
 																}																
 												}
 												catch { throw; }
