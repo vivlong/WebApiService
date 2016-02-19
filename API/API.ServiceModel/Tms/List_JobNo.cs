@@ -33,7 +33,7 @@ namespace WebApi.ServiceModel.Tms
                 using (var db = DbConnectionFactory.OpenDbConnection())
                 {
 																				hsResult = db.HashSet<string>(
-                        "Select Distinct JobNo From Jmjm4 Where IsNull(Jmjm4.DoneFlag,'')<>'' And Jmjm4.PhoneNumber='" + request.PhoneNumber + "'"
+																								"Select Distinct Jmjm4.JobNo From Jmjm4 Left Join Jmjm3 On Jmjm3.JobNo=Jmjm4.JobNo Where IsNull(Jmjm4.DoneFlag,'')<>'' And Jmjm4.PhoneNumber='" + request.PhoneNumber + "' And DATEDIFF(day, Jmjm3.StartDateTime, getdate())<=0"
                     );
 																				if (hsResult.Count > 0)
 																				{
