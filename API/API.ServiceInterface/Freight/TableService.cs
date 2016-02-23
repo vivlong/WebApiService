@@ -10,6 +10,20 @@ namespace WebApi.ServiceInterface.Freight
 {
     public class TableService
 				{
+								public void TS_Saco(Auth auth, Saco request, Saco_Logic logic, CommonResponse ecr, string[] token, string uri)
+								{
+												if (auth.AuthResult(token, uri))
+												{
+																ecr.data.results = logic.Get_Saco1_List(request);
+																ecr.meta.code = 200;
+																ecr.meta.message = "OK";
+												}
+												else
+												{
+																ecr.meta.code = 401;
+																ecr.meta.message = "Unauthorized";
+												}
+								}
 								public void TS_Smsa(Auth auth, Smsa request, Smsa_Logic logic, CommonResponse ecr, string[] token, string uri)
 								{
 												if (auth.AuthResult(token, uri))

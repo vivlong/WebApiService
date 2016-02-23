@@ -81,7 +81,8 @@ namespace WebApi
             container.RegisterAutoWired<WebApi.ServiceModel.Tms.Update_Done_Logic>();
             container.RegisterAutoWired<WebApi.ServiceModel.Tms.List_Container_Logic>();
             //Freight
-            container.RegisterAutoWired<WebApi.ServiceModel.Freight.Freight_Login_Logic>();
+												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Freight_Login_Logic>();
+												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Saco_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Saus_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Rcbp_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Smsa_Logic>();

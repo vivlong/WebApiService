@@ -251,7 +251,20 @@ namespace WebApi.ServiceInterface
             }
             catch (Exception ex) { cr(ecr, ex); }
             return ecr;
-        }
+								}
+								public ServiceModel.Freight.Saco_Logic saco_Logic { get; set; }
+								public object Any(ServiceModel.Freight.Saco request)
+								{
+												CommonResponse ecr = new CommonResponse();
+												ecr.initial();
+												try
+												{
+																ServiceInterface.Freight.TableService ls = new ServiceInterface.Freight.TableService();
+																ls.TS_Saco(auth, request, saco_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
+												}
+												catch (Exception ex) { cr(ecr, ex); }
+												return ecr;
+								}
 								public ServiceModel.Freight.Saus_Logic saus_Logic { get; set; }
 								public object Any(ServiceModel.Freight.Saus request)
 								{
