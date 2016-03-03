@@ -23,7 +23,6 @@ namespace WebApi
     {
         private static string ver = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 								private static string strSecretKey;
-								private static string strWebAttachPath;
         public AppHost()
             : base("Web Api v" + ver, typeof(ApiServices).Assembly)
         {
@@ -61,8 +60,6 @@ namespace WebApi
             container.Register<WebApi.ServiceModel.IConnectString>(connectString);
             var secretKey = new WebApi.ServiceModel.SecretKeyFactory(strSecretKey);
             container.Register<WebApi.ServiceModel.ISecretKey>(secretKey);
-												var webAttachPath = new WebApi.ServiceModel.WebAttachPathFactory(strWebAttachPath);
-												container.Register<WebApi.ServiceModel.IWebAttachPath>(webAttachPath);
             //Auth
             container.RegisterAutoWired<WebApi.ServiceModel.Auth>();
             //WMS
@@ -82,7 +79,6 @@ namespace WebApi
             container.RegisterAutoWired<WebApi.ServiceModel.Tms.List_Container_Logic>();
             //Freight
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Freight_Login_Logic>();
-												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Saco_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Saus_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Rcbp_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Smsa_Logic>();
@@ -168,7 +164,6 @@ namespace WebApi
             {
                 strAppSetting = System.Configuration.ConfigurationManager.AppSettings["DataBase"];
 																strSecretKey = System.Configuration.ConfigurationManager.AppSettings["SecretKey"];
-																strWebAttachPath = System.Configuration.ConfigurationManager.AppSettings["WebAttachPath"];
                 strDataBase = strAppSetting.Split(',');
                 int intCnt;
                 for (intCnt = 0; intCnt <= strDataBase.Length - 1; intCnt++)

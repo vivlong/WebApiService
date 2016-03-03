@@ -9,7 +9,8 @@ using ServiceStack.OrmLite;
 
 namespace WebApi.ServiceModel.Tms
 {
-    [Route("/event/action/list/container/{PhoneNumber}/{JobNo}", "Get")]
+				[Route("/event/action/list/container/{PhoneNumber}/{JobNo}", "Get")]
+				[Route("/event/action/list/container", "Get")] //container?PhoneNumber= & JobNo=
     public class List_Container : IReturn<CommonResponse>
     {
         public string PhoneNumber { get; set; }
@@ -38,10 +39,13 @@ namespace WebApi.ServiceModel.Tms
                 using (var db = DbConnectionFactory.OpenDbConnection())
                 {
                     Result = db.Select<List_Container_Response>(
-																								"Select Jmjm4.JobNo, Jmjm4.JobLineItemNo, Jmjm4.LineItemNo, Jmjm4.ContainerNo, Jmjm3.Description, Jmjm4.Remark, Jmjm4.ItemName, Jmje1.AllowSkipFlag, Jmjm4.DoneFlag " +
+																								"Select Jmjm4.JobNo, Jmjm4.JobLineItemNo, Jmjm4.LineItemNo," +
+																								"IsNull(Jmjm4.ContainerNo,'') AS ContainerNo, IsNull(Jmjm3.Description,'') AS Description," +
+																								"IsNull(Jmjm4.Remark,'') AS Remark, IsNull(Jmjm4.ItemName,'') AS ItemName," +
+																								"IsNull(Jmje1.AllowSkipFlag,'') AS AllowSkipFlag, IsNull(Jmjm4.DoneFlag,'') AS DoneFlag " +
                         "From Jmjm4 Left Join Jmjm3 On Jmjm4.JobNo=Jmjm3.JobNo And Jmjm4.JobLineItemNo=Jmjm3.LineItemNo " +
                         "Left Join Jmje1 On Jmjm3.EventCode=Jmje1.EventCode " +
-																								"Where Jmjm4.PhoneNumber='" + request.PhoneNumber + "' And Jmjm4.JobNo='" + request.JobNo + "' And IsNull(Jmjm4.DoneFlag,'')<>''"
+																								"Where Jmjm4.PhoneNumber='" + request.PhoneNumber + "' And Jmjm4.JobNo='" + request.JobNo + "'"
                     );
                 }
             }

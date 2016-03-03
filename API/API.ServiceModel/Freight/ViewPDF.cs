@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using ServiceStack;
+using ServiceStack.Common.Web;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceHost;
 using WebApi.ServiceModel.Tables;
@@ -12,13 +13,15 @@ using WebApi.ServiceModel.Tables;
 namespace WebApi.ServiceModel.Freight
 {
 				[Route("/freight/view/pdf", "Get")] // pdf?FolderName=
+				[Route("/freight/view/pdf/file", "Get")] // file?FolderName= & Key= & FileName=
 				public class ViewPDF : IReturn<CommonResponse>
 				{
 								public string FolderName { get; set; }
+								public string Key { get; set; }
+								public string FileName { get; set; }
 				}
 				public class ViewPDF_Logic
 				{
-								public IWebAttachPath WebAttachPath { get; set; }
 								public IDbConnectionFactory DbConnectionFactory { get; set; }
 								public struct TrxNoPDFName
 								{
@@ -64,11 +67,21 @@ namespace WebApi.ServiceModel.Freight
 												object Result = null;
 												tnPDF = new List<TrxNoPDFName>();
 												string strPath = "";
+												string eDocumentPath = "";
 												try
 												{
+																using (var db = DbConnectionFactory.OpenDbConnection())
+																{
+																				string strSQL = "Select Top 1 eDocumentPath From Saco1";
+																				List<Saco1> saco1 = db.Select<Saco1>(strSQL);
+																				if (saco1.Count > 0)
+																				{
+																								eDocumentPath = saco1[0].eDocumentPath;
+																				}
+																}
 																if (!string.IsNullOrEmpty(request.FolderName))
 																{
-																				strPath = WebAttachPath.strAttachPath + "\\" + request.FolderName + "\\eDoc";
+																				strPath = eDocumentPath + "\\" + request.FolderName + "\\eDoc";
 																				GetAllDirList(strPath);
 																}
 																if (tnPDF.Count > 0)
@@ -84,7 +97,7 @@ namespace WebApi.ServiceModel.Freight
 																				using (var db = DbConnectionFactory.OpenDbConnection())
 																				{
 																								string strSQL = "";
-																								switch(request.FolderName)
+																								switch(request.FolderName.ToLower())
 																								{
 																												case "ivcr1":
 																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strKeys + ")";
@@ -95,7 +108,7 @@ namespace WebApi.ServiceModel.Freight
 																																				{
 																																								if (tnPDF[i].Key.Equals(vi.TrxNo.ToString()))
 																																								{
-																																												vi.FilePath = "./" + request.FolderName + "/eDoc/" + tnPDF[i].Key + "/" + tnPDF[i].FileName;
+																																												vi.FileName = tnPDF[i].FileName;
 																																												break;
 																																								}
 																																				}
@@ -111,7 +124,7 @@ namespace WebApi.ServiceModel.Freight
 																																				{
 																																								if (tnPDF[i].Key.Equals(vi.JobNo.ToString()))
 																																								{
-																																												vi.FilePath = "./" + request.FolderName + "/eDoc/" + tnPDF[i].Key + "/" + tnPDF[i].FileName;
+																																												vi.FileName = tnPDF[i].FileName;
 																																												break;
 																																								}
 																																				}
@@ -120,10 +133,48 @@ namespace WebApi.ServiceModel.Freight
 																																break;
 																												case "slcu1":
 																																strSQL = "Select TrxNo,InvoiceNo,InvoiceDate,CustomerName,InvoiceAmt From Ivcr1 Where TrxNo in (" + strKeys + ")";
+																																List<ViewPDF_Jmjm> rSlcu = db.Select<ViewPDF_Jmjm>(strSQL);
+																																foreach (ViewPDF_Jmjm vi in rSlcu)
+																																{
+																																				for (int i = 0; i <= tnPDF.Count - 1; i++)
+																																				{
+																																								if (tnPDF[i].Key.Equals(vi.JobNo.ToString()))
+																																								{
+																																												vi.FileName = tnPDF[i].FileName;
+																																												break;
+																																								}
+																																				}
+																																}
+																																Result = rSlcu;
 																																break;
 																								}
 																				}																				
 																}																
+												}
+												catch { throw; }
+												return Result;
+								}
+								public byte[] Get_File(ViewPDF request)
+								{
+												byte[] Result = null;
+												string strPath = "";
+												string eDocumentPath = "";
+												try
+												{
+																using (var db = DbConnectionFactory.OpenDbConnection())
+																{
+																				string strSQL = "Select Top 1 eDocumentPath From Saco1";
+																				List<Saco1> saco1 = db.Select<Saco1>(strSQL);
+																				eDocumentPath = saco1[0].eDocumentPath;
+																				strPath = eDocumentPath + "\\" + request.FolderName + "\\eDoc\\" + request.Key + "\\" + request.FileName;
+																				using (FileStream fsRead = new FileStream(strPath, FileMode.Open))
+																				{
+																								int fsLen = (int)fsRead.Length;
+																								byte[] heByte = new byte[fsLen];
+																								int r = fsRead.Read(heByte, 0, heByte.Length);
+																								Result = heByte;
+																				}
+																}
 												}
 												catch { throw; }
 												return Result;

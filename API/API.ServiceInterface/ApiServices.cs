@@ -252,19 +252,6 @@ namespace WebApi.ServiceInterface
             catch (Exception ex) { cr(ecr, ex); }
             return ecr;
 								}
-								public ServiceModel.Freight.Saco_Logic saco_Logic { get; set; }
-								public object Any(ServiceModel.Freight.Saco request)
-								{
-												CommonResponse ecr = new CommonResponse();
-												ecr.initial();
-												try
-												{
-																ServiceInterface.Freight.TableService ls = new ServiceInterface.Freight.TableService();
-																ls.TS_Saco(auth, request, saco_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
-												}
-												catch (Exception ex) { cr(ecr, ex); }
-												return ecr;
-								}
 								public ServiceModel.Freight.Saus_Logic saus_Logic { get; set; }
 								public object Any(ServiceModel.Freight.Saus request)
 								{
@@ -346,15 +333,23 @@ namespace WebApi.ServiceInterface
 								public ServiceModel.Freight.ViewPDF_Logic viewPDF_Logic { get; set; }
 								public object Get(ServiceModel.Freight.ViewPDF request)
 								{
-												CommonResponse ecr = new CommonResponse();
-												ecr.initial();
-												try
+												if (this.Request.RawUrl.IndexOf("/pdf/file") > 0)
 												{
-																ServiceInterface.Freight.PdfService ps = new ServiceInterface.Freight.PdfService();
-																ps.PS_View(auth, request, viewPDF_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
+																byte[] heByte = viewPDF_Logic.Get_File(request);																
+																return new HttpResult(heByte, "application/pdf");
 												}
-												catch (Exception ex) { cr(ecr, ex); }
-												return ecr;
+												else //this.Request.RawUrl.IndexOf("/pdf") > 0
+												{
+																CommonResponse ecr = new CommonResponse();
+																ecr.initial();
+																try
+																{
+																				ServiceInterface.Freight.PdfService ps = new ServiceInterface.Freight.PdfService();
+																				ps.PS_View(auth, request, viewPDF_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
+																}
+																catch (Exception ex) { cr(ecr, ex); }
+																return ecr;
+												}
 								}
 								#endregion
 								#region Common

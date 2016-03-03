@@ -12,6 +12,6 @@ namespace WebApi.ServiceModel.Tables
 								public Nullable<DateTime> InvoiceDate { get; set; }
 								public string CustomerName { get; set; }
 								public decimal InvoiceAmt { get; set; }
-								public string FilePath { get; set; }
+								public string FileName { get; set; }
     }
 }
