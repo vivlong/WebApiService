@@ -46,6 +46,27 @@ namespace WebApi.ServiceInterface.Freight
 																ecr.meta.message = "Unauthorized";
 												}
 								}
+								public void TS_Smct(Auth auth, Smct request, Smct_Logic logic, CommonResponse ecr, string[] token, string uri)
+								{
+												if (auth.AuthResult(token, uri))
+												{
+																if (uri.IndexOf("/smct1/sps") > 0)
+																{
+																				ecr.data.results = logic.Get_Smct1_SpsList(request);
+																}
+																else if (uri.IndexOf("/smct2") > 0)
+																{
+																				ecr.data.results = logic.Get_Smct2_List(request);
+																}																	
+																ecr.meta.code = 200;
+																ecr.meta.message = "OK";
+												}
+												else
+												{
+																ecr.meta.code = 401;
+																ecr.meta.message = "Unauthorized";
+												}
+								}
 								public void TS_Plvi(Auth auth, Plvi request, Plvi_Logic logic, CommonResponse ecr, string[] token, string uri)
 								{
 												if (auth.AuthResult(token, uri))

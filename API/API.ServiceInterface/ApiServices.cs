@@ -265,6 +265,19 @@ namespace WebApi.ServiceInterface
 												catch (Exception ex) { cr(ecr, ex); }
 												return ecr;
 								}
+								public ServiceModel.Freight.Smct_Logic smct_Logic { get; set; }
+								public object Any(ServiceModel.Freight.Smct request)
+								{
+												CommonResponse ecr = new CommonResponse();
+												ecr.initial();
+												try
+												{
+																ServiceInterface.Freight.TableService ts = new ServiceInterface.Freight.TableService();
+																ts.TS_Smct(auth, request, smct_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
+												}
+												catch (Exception ex) { cr(ecr, ex); }
+												return ecr;
+								}
 								public ServiceModel.Freight.Smsa_Logic smsa_Logic { get; set; }
 								public object Any(ServiceModel.Freight.Smsa request)
 								{
