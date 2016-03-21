@@ -31,7 +31,7 @@ namespace WebApi.ServiceModel.Tms
 												HashSet<string> hsResult = null;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+                using (var db = DbConnectionFactory.OpenDbConnection("TMS"))
                 {
 																				hsResult = db.HashSet<string>(
 																								"Select Distinct Jmjm4.JobNo From Jmjm4 Left Join Jmjm3 On Jmjm3.JobNo=Jmjm4.JobNo Where Jmjm4.PhoneNumber='" + request.PhoneNumber + "' And DATEDIFF(day, Jmjm3.StartDateTime, getdate())<=0"
@@ -57,7 +57,7 @@ namespace WebApi.ServiceModel.Tms
             long Result = -1;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+                using (var db = DbConnectionFactory.OpenDbConnection("TMS"))
                 {
                     Result = db.Count<Jmjm4>(j4 => j4.PhoneNumber == strPhoneNumber && j4.JobNo == strJobNo && j4.DoneFlag != null);
                 }
@@ -70,7 +70,7 @@ namespace WebApi.ServiceModel.Tms
 												long Result = -1;
 												try
 												{
-																using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection("TMS"))
 																{
 																				Result = db.Count<Jmjm4>(j4 => j4.PhoneNumber == strPhoneNumber && j4.JobNo == strJobNo && j4.DoneFlag == "Y");
 																}

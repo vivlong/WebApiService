@@ -28,7 +28,7 @@ namespace WebApi.ServiceModel.Tms
             int Result = -1;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+                using (var db = DbConnectionFactory.OpenDbConnection("TMS"))
                 {
                     if (request.DoneDateTime != DateTime.MinValue)
                     {
@@ -56,7 +56,7 @@ namespace WebApi.ServiceModel.Tms
                 {
                     return Result;
                 }
-                using (var db = DbConnectionFactory.OpenDbConnection())
+                using (var db = DbConnectionFactory.OpenDbConnection("TMS"))
                 {                    
                     Result = db.Scalar<int>(
                         "Select count(*) From Jmjm6 Where Jmjm6.JobNo={0} And jmjm6.ContainerNo={1}",request.JobNo,request.ContainerNo

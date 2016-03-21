@@ -48,16 +48,16 @@ namespace WebApi
             //this.Plugins.Add(cf);
             this.Plugins.Add(new SwaggerFeature());
             //DB
-            string strConnectionString = GetConnectionString();
-            var dbConnectionFactory = new OrmLiteConnectionFactory(strConnectionString, SqlServerDialect.Provider)
-            {                
+												var dbConnectionFactory = new OrmLiteConnectionFactory(GetConnectionString("Freight"), SqlServerDialect.Provider)
+            {
                 ConnectionFilter =
                     x =>
                     new ProfiledDbConnection(x, Profiler.Current)
             };
+												dbConnectionFactory.RegisterConnection("TMS", GetConnectionString("TMS"), SqlServerDialect.Provider);
+												dbConnectionFactory.RegisterConnection("WMS", GetConnectionString("WMS"), SqlServerDialect.Provider);
             container.Register<IDbConnectionFactory>(dbConnectionFactory);
-            var connectString = new WebApi.ServiceModel.ConnectStringFactory(strConnectionString);
-            container.Register<WebApi.ServiceModel.IConnectString>(connectString);
+												//
             var secretKey = new WebApi.ServiceModel.SecretKeyFactory(strSecretKey);
             container.Register<WebApi.ServiceModel.ISecretKey>(secretKey);
             //Auth
@@ -88,7 +88,7 @@ namespace WebApi
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Tracking_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.ViewPDF_Logic>();
             //Common
-												container.RegisterAutoWired<WebApi.ServiceModel.Common.List_Rcbp1_Logic>();
+												container.RegisterAutoWired<WebApi.ServiceModel.Wms.List_Rcbp1_Logic>();
         }
         #region DES
         //private string DESKey = "F322186F";
@@ -156,14 +156,24 @@ namespace WebApi
             return DesDecrypt;
         }
         #endregion
-        private static string GetConnectionString()
+        private static string GetConnectionString(string type)
         {
             string IniConnection = "";
             string strAppSetting = "";
             string[] strDataBase = new string[3];
             if (string.IsNullOrEmpty(strAppSetting))
             {
-                strAppSetting = System.Configuration.ConfigurationManager.AppSettings["DataBase"];
+																if (string.Equals(type, "TMS"))
+																{
+																				strAppSetting = System.Configuration.ConfigurationManager.AppSettings["TMS_DB"];
+																}else if(string.Equals(type,"WMS"))
+																{
+																				strAppSetting = System.Configuration.ConfigurationManager.AppSettings["WMS_DB"];
+																}
+																else if (string.Equals(type, "Freight"))
+																{
+																				strAppSetting = System.Configuration.ConfigurationManager.AppSettings["Mobile_DB"];
+																}
 																strSecretKey = System.Configuration.ConfigurationManager.AppSettings["SecretKey"];
                 strDataBase = strAppSetting.Split(',');
                 int intCnt;

@@ -13,7 +13,7 @@ using WebApi.ServiceModel;
 using WebApi.ServiceModel.Wms;
 using WebApi.ServiceModel.Tms;
 using WebApi.ServiceModel.Utils;
-using WebApi.ServiceModel.Common;
+using WebApi.ServiceModel.Wms;
 using WebApi.ServiceModel.Freight;
 using WebApi.ServiceInterface.Wms;
 using WebApi.ServiceInterface.Tms;
@@ -366,8 +366,8 @@ namespace WebApi.ServiceInterface
 								}
 								#endregion
 								#region Common
-        public ServiceModel.Common.List_Rcbp1_Logic list_Rcbp1_Logic { get; set; }
-        public object Get(ServiceModel.Common.List_Rcbp1 request)
+        public ServiceModel.Wms.List_Rcbp1_Logic list_Rcbp1_Logic { get; set; }
+        public object Get(ServiceModel.Wms.List_Rcbp1 request)
         {
             CommonResponse ecr = new CommonResponse();
             ecr.initial();

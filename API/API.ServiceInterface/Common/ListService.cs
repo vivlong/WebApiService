@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WebApi.ServiceModel;
-using WebApi.ServiceModel.Common;
+using WebApi.ServiceModel.Wms;
 
 namespace WebApi.ServiceInterface.Common
 {

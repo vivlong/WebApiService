@@ -45,7 +45,7 @@ namespace WebApi.ServiceModel.Freight
 																								{
 																												strFilter = strFilter + " And ";
 																								}
-																								strFilter = strFilter + " PartyName LIKE '" + request.PartyName + "%'";
+																								strFilter = strFilter + "  PartyCode = (Select top 1 BusinessPartyCode From Rcbp1 Where BusinessPartyName LIKE '" + request.PartyName + "%')";
 																				}
 																				if (!string.IsNullOrEmpty(request.PortOfLoadingCode))
 																				{
@@ -53,7 +53,7 @@ namespace WebApi.ServiceModel.Freight
 																								{
 																												strFilter = strFilter + " And ";
 																								}
-																								strFilter = strFilter + " PortOfLoadingCode LIKE '" + request.PortOfLoadingCode + "%'";
+																								strFilter = strFilter + " PortOfLoadingCode = (Select top 1 PortCode From Rcsp1 Where PortName LIKE '" + request.PortOfLoadingCode + "%')";
 																				}
 																				if (!string.IsNullOrEmpty(request.PortOfDischargeCode))
 																				{
@@ -61,7 +61,7 @@ namespace WebApi.ServiceModel.Freight
 																								{
 																												strFilter = strFilter + " And ";
 																								}
-																								strFilter = strFilter + " PortOfDischargeCode LIKE '" + request.PortOfDischargeCode + "%'";
+																								strFilter = strFilter + " PortOfDischargeCode = (Select top 1 PortCode From Rcsp1 Where PortName LIKE '" + request.PortOfDischargeCode + "%')";
 																				}
 																				if (!string.IsNullOrEmpty(request.ModuleCode))
 																				{
@@ -77,7 +77,7 @@ namespace WebApi.ServiceModel.Freight
 																								{
 																												strFilter = strFilter + " And ";
 																								}
-																								strFilter = strFilter + " JobType LIKE '" + request.JobType + "%'";
+																								strFilter = strFilter + " JobType = (Select top 1 JobType From Jmjt1 Where JobDescription LIKE '" + request.JobType + "%'";
 																				}
 																				if (!string.IsNullOrEmpty(request.EffectiveDate))
 																				{

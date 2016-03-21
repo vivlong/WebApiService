@@ -26,7 +26,7 @@ namespace WebApi.ServiceModel.Wms
             List<Imgi1> Result = null;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection("WMS"))
                 {
                     if (!string.IsNullOrEmpty(request.CustomerCode))
                     {

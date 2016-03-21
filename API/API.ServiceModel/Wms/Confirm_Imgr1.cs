@@ -23,7 +23,7 @@ namespace WebApi.ServiceModel.Wms
             int Result = -1;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection("WMS"))
                 {
                     Result = db.SqlScalar<int>("EXEC spi_Imgr_Confirm @TrxNo,@UpdateBy", new { TrxNo = request.TrxNo, UpdateBy = request.UserID });
                     //List<int> results = db.SqlList<int>("EXEC spi_Imgr_Confirm @TrxNo @UpdateBy", new { TrxNo = request.TrxNo, UpdateBy = request.UserID });

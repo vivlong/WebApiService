@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WebApi.ServiceModel;
-using WebApi.ServiceModel.Common;
+using WebApi.ServiceModel.Wms;
 using WebApi.ServiceModel.Freight;
 
 namespace WebApi.ServiceInterface.Freight

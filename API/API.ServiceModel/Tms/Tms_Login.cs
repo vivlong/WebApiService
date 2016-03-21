@@ -24,7 +24,7 @@ namespace WebApi.ServiceModel.Tms
             int Result = -1;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+                using (var db = DbConnectionFactory.OpenDbConnection("TMS"))
                 {
                     if (request.PhoneNumber != null && request.PhoneNumber.Length > 0)
                     {
@@ -44,7 +44,7 @@ namespace WebApi.ServiceModel.Tms
             string Result = "";
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+                using (var db = DbConnectionFactory.OpenDbConnection("TMS"))
                 {
                     Result = db.QuerySingle<string>("Select Top 1 ISNULL(DriverName,'') From Jmjm4 Where PhoneNumber=" + Modfunction.SQLSafeValue(request.PhoneNumber));
                 }

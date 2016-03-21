@@ -23,7 +23,7 @@ namespace WebApi.ServiceModel.Wms
             Impr1 Result = null;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection("WMS"))
                 {
                     Result = db.QuerySingle<Impr1>(
                         "Select * From Impr1 Where IsNull(ProductCode,'')<>'' And IsNull(StatusCode,'')<>'DEL' And UserDefine01=" + Modfunction.SQLSafeValue(request.BarCode)

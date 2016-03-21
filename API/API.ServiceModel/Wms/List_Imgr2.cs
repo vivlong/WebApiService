@@ -23,7 +23,7 @@ namespace WebApi.ServiceModel.Wms
             List<Imgr2> Result = null;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection("WMS"))
                 {
                     Result = db.Select<Imgr2>(
                         "Select * From Imgr2 " +

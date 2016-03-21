@@ -38,7 +38,7 @@ namespace WebApi.ServiceModel.Tms
             List<List_Jmjm6_Response> Result = null;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+                using (var db = DbConnectionFactory.OpenDbConnection("TMS"))
                 {
                     Result = db.Select<List_Jmjm6_Response>(
                         "Select Jmjm6.JobNo, Jmjm6.LineItemNo, Jmjm6.ContainerNo, Jmjm6.Remark, Jmjm1.JobType, Jmjm6.VehicleNo, " +

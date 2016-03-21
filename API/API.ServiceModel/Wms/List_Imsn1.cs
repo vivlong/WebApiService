@@ -33,7 +33,7 @@ namespace WebApi.ServiceModel.Wms
             List<Imsn1> Result = null;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection("WMS"))
                 {
                     Result = db.Select<Imsn1>(
                         "Select * From Imsn1 " +

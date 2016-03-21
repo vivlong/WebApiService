@@ -24,7 +24,7 @@ namespace WebApi.ServiceModel.Freight
             HashSet<string> Result = null;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection())
                 {
                     if (!string.IsNullOrEmpty(request.PortOfDischargeName))
                     {
@@ -48,7 +48,7 @@ namespace WebApi.ServiceModel.Freight
             List<Rcvy1_sps> Result = null;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection())
                 {
 																				string strSQL = "SELECT VoyageID,VoyageNo,VesselCode,CloseDateTime,ETD,ETA,datediff(D,ETD,ETA) TranSit,PortofDischargeName," +
 																								"(select top 1 ShippinglineName from rcsl1 where shippinglinecode=rcvy1.shippinglinecode)  ShippinglineName " +

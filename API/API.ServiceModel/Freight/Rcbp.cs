@@ -117,7 +117,7 @@ namespace WebApi.ServiceModel.Freight
             List<Rcbp3> Result = null;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection())
                 {
                     if (!string.IsNullOrEmpty(request.BusinessPartyCode))
                     {

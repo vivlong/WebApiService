@@ -8,7 +8,7 @@ using ServiceStack.ServiceHost;
 using ServiceStack.OrmLite;
 using WebApi.ServiceModel.Tables;
 
-namespace WebApi.ServiceModel.Common
+namespace WebApi.ServiceModel.Wms
 {
     [Route("/wms/action/list/rcbp1", "Get")]
     [Route("/wms/action/list/rcbp1/{BusinessPartyName}", "Get")]
@@ -27,7 +27,7 @@ namespace WebApi.ServiceModel.Common
             List<Rcbp1> Result = null;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection("WMS"))
                 {
                     if (!string.IsNullOrEmpty(request.BusinessPartyName))
                     {
@@ -54,7 +54,7 @@ namespace WebApi.ServiceModel.Common
 												List<Rcbp1> Result = null;
 												try
 												{
-																using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection("WMS"))
 																{
 																				int count = int.Parse(request.RecordCount);
 																				string strWhere = "";

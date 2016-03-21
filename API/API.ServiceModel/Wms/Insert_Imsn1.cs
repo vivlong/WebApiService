@@ -28,7 +28,7 @@ namespace WebApi.ServiceModel.Wms
             int intResult = -1;
             try
             {
-                using (var db = DbConnectionFactory.OpenDbConnection())
+																using (var db = DbConnectionFactory.OpenDbConnection("WMS"))
                 {
                     if (request.IssueNoteNo.Length > 0)
                     {
