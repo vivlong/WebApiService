@@ -11,12 +11,12 @@ using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using WebApi.ServiceModel;
 using WebApi.ServiceModel.Wms;
-using WebApi.ServiceModel.Tms;
+using WebApi.ServiceModel.Event;
 using WebApi.ServiceModel.Utils;
-using WebApi.ServiceModel.Wms;
+using WebApi.ServiceModel.Tms;
 using WebApi.ServiceModel.Freight;
 using WebApi.ServiceInterface.Wms;
-using WebApi.ServiceInterface.Tms;
+using WebApi.ServiceInterface.Event;
 using File = System.IO.File;
 using System.Reflection;
 
@@ -130,6 +130,19 @@ namespace WebApi.ServiceInterface
 												catch (Exception ex) { cr(ecr, ex); }
 												return ecr;
 								}
+								public ServiceModel.Wms.List_Rcbp1_Logic list_Rcbp1_Logic { get; set; }
+								public object Get(ServiceModel.Wms.List_Rcbp1 request)
+								{
+												CommonResponse ecr = new CommonResponse();
+												ecr.initial();
+												try
+												{
+																ServiceInterface.Common.ListService ls = new ServiceInterface.Common.ListService();
+																ls.List_Rcbp1(auth, request, list_Rcbp1_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
+												}
+												catch (Exception ex) { cr(ecr, ex); }
+												return ecr;
+								}
 								/*
 								public object Any(List_AsnNo request)
 								{
@@ -171,75 +184,103 @@ namespace WebApi.ServiceInterface
 								}
 								*/
 								#endregion
-								#region Tms
-        public ServiceModel.Tms.Tms_Login_Logic tms_Login_Logic { get; set; }
-        public object Any(ServiceModel.Tms.Tms_Login request)
+								#region Event
+        public ServiceModel.Event.Event_Login_Logic tms_Login_Logic { get; set; }
+        public object Any(ServiceModel.Event.Event_Login request)
         {
             CommonResponse ecr = new CommonResponse();
             ecr.initial();
             try
             {
-                ServiceInterface.Tms.LoginService ls = new ServiceInterface.Tms.LoginService();
+                ServiceInterface.Event.LoginService ls = new ServiceInterface.Event.LoginService();
                 ls.initial(auth, request, tms_Login_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
             }
             catch (Exception ex) { cr(ecr, ex); }
             return ecr;
         }
-        public ServiceModel.Tms.List_JobNo_Logic list_JobNo_Logic { get; set; }
-        public object Get(ServiceModel.Tms.List_JobNo request)
+        public ServiceModel.Event.List_JobNo_Logic list_JobNo_Logic { get; set; }
+        public object Get(ServiceModel.Event.List_JobNo request)
         {
             CommonResponse ecr = new CommonResponse();
             ecr.initial();
             try
             {
-                ServiceInterface.Tms.ListService ls = new ServiceInterface.Tms.ListService();
+                ServiceInterface.Event.ListService ls = new ServiceInterface.Event.ListService();
                 ls.ListJobNo(auth, request, list_JobNo_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
             }
             catch (Exception ex) { cr(ecr, ex); }
             return ecr;
         }
-        public ServiceModel.Tms.List_Container_Logic list_Container_Logic { get; set; }
-        public object Get(ServiceModel.Tms.List_Container request)
+        public ServiceModel.Event.List_Container_Logic list_Container_Logic { get; set; }
+        public object Get(ServiceModel.Event.List_Container request)
         {
             CommonResponse ecr = new CommonResponse();
             ecr.initial();
             try
             {
-                ServiceInterface.Tms.ListService ls = new ServiceInterface.Tms.ListService();
+                ServiceInterface.Event.ListService ls = new ServiceInterface.Event.ListService();
                 ls.ListContainer(auth, request, list_Container_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
             }
             catch (Exception ex) { cr(ecr, ex); }
             return ecr;
         }
-        public ServiceModel.Tms.List_Jmjm6_Logic list_Jmjm6_Logic { get; set; }
-        public object Get(ServiceModel.Tms.List_Jmjm6 request)
+        public ServiceModel.Event.List_Jmjm6_Logic list_Jmjm6_Logic { get; set; }
+        public object Get(ServiceModel.Event.List_Jmjm6 request)
         {
             CommonResponse ecr = new CommonResponse();
             ecr.initial();
             try
             {
-                ServiceInterface.Tms.ListService ls = new ServiceInterface.Tms.ListService();
+                ServiceInterface.Event.ListService ls = new ServiceInterface.Event.ListService();
                 ls.ListJmjm6(auth, request, list_Jmjm6_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
             }
             catch (Exception ex) { cr(ecr, ex); }
             return ecr;
         }
-        public ServiceModel.Tms.Update_Done_Logic update_Done_Logic { get; set; }
-        public object Post(ServiceModel.Tms.Update_Done request)
+        public ServiceModel.Event.Update_Done_Logic update_Done_Logic { get; set; }
+        public object Post(ServiceModel.Event.Update_Done request)
         {
             CommonResponse ecr = new CommonResponse();
             ecr.initial();
             try
             {
-                ServiceInterface.Tms.DoneService ds = new ServiceInterface.Tms.DoneService();
+                ServiceInterface.Event.DoneService ds = new ServiceInterface.Event.DoneService();
                 ds.initial(auth, request, update_Done_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
             }
             catch (Exception ex) { cr(ecr, ex); }
             return ecr;
         }
 								#endregion
+								#region TMS
+								public ServiceModel.Tms.Jmjm_Logic tms_jmjm_Logic { get; set; }
+								public object Any(ServiceModel.Tms.Jmjm request)
+								{
+												CommonResponse ecr = new CommonResponse();
+												ecr.initial();
+												try
+												{
+																ServiceInterface.Tms.TableService ts = new ServiceInterface.Tms.TableService();
+																ts.TS_Jmjm(auth, request, tms_jmjm_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
+												}
+												catch (Exception ex) { cr(ecr, ex); }
+												return ecr;
+								}
+								public ServiceModel.Tms.Sibl_Logic tms_sibl_Logic { get; set; }
+								public object Any(ServiceModel.Tms.Sibl request)
+								{
+												CommonResponse ecr = new CommonResponse();
+												ecr.initial();
+												try
+												{
+																ServiceInterface.Tms.TableService ts = new ServiceInterface.Tms.TableService();
+																ts.TS_Sibl(auth, request, tms_sibl_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
+												}
+												catch (Exception ex) { cr(ecr, ex); }
+												return ecr;
+								}
+								#endregion
 								#region Freight
-        public ServiceModel.Freight.Freight_Login_Logic freight_Login_Logic { get; set; }
+								public ServiceModel.Freight.Freight_Login_Logic freight_Login_Logic { get; set; }
         public object Any(ServiceModel.Freight.Freight_Login request)
         {
             CommonResponse ecr = new CommonResponse();
@@ -366,19 +407,6 @@ namespace WebApi.ServiceInterface
 								}
 								#endregion
 								#region Common
-        public ServiceModel.Wms.List_Rcbp1_Logic list_Rcbp1_Logic { get; set; }
-        public object Get(ServiceModel.Wms.List_Rcbp1 request)
-        {
-            CommonResponse ecr = new CommonResponse();
-            ecr.initial();
-            try
-            {
-                ServiceInterface.Common.ListService ls = new ServiceInterface.Common.ListService();
-                ls.List_Rcbp1(auth, request, list_Rcbp1_Logic, ecr, this.Request.Headers.GetValues("Signature"), this.Request.RawUrl);
-            }
-            catch (Exception ex) { cr(ecr, ex); }
-            return ecr;
-        }
 								public object Post(Uploading request)
 								{
 												//string[] segments = base.Request.QueryString.GetValues(0);
@@ -400,7 +428,7 @@ namespace WebApi.ServiceInterface
 												return new HttpResult(System.Net.HttpStatusCode.OK);
 								}
 								#endregion
-        private CommonResponse cr(CommonResponse ecr, Exception ex)
+								private CommonResponse cr(CommonResponse ecr, Exception ex)
         {
             ecr.meta.code = 599;
             ecr.meta.message = "The server handle exceptions, the operation fails.";

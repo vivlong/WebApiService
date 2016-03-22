@@ -82,9 +82,11 @@
     <Compile Include="Freight\PdfService.cs" />
     <Compile Include="Freight\TableService.cs" />
     <Compile Include="Freight\LoginService.cs" />
-    <Compile Include="Tms\DoneService.cs" />
-    <Compile Include="Tms\ListService.cs" />
+    <Compile Include="Event\DoneService.cs" />
+    <Compile Include="Event\ListService.cs" />
+    <Compile Include="Event\LoginService.cs" />
     <Compile Include="Tms\LoginService.cs" />
+    <Compile Include="Tms\TableService.cs" />
     <Compile Include="Wms\ConfirmService.cs" />
     <Compile Include="Wms\ListService.cs" />
     <Compile Include="ApiServices.cs" />

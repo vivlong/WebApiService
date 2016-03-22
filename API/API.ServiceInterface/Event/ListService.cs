@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WebApi.ServiceModel;
-using WebApi.ServiceModel.Tms;
+using WebApi.ServiceModel.Event;
 
-namespace WebApi.ServiceInterface.Tms
+namespace WebApi.ServiceInterface.Event
 {
     public class ListService
     {

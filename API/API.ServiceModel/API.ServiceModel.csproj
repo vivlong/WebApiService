@@ -106,6 +106,7 @@
     <Compile Include="Tables\Rcvy1.cs" />
     <Compile Include="Tables\Jmjt1.cs" />
     <Compile Include="Tables\Rcsm1.cs" />
+    <Compile Include="Tables\Sibl2.cs" />
     <Compile Include="Tables\Saco1.cs" />
     <Compile Include="Tables\Smct2.cs" />
     <Compile Include="Tables\Smct1.cs" />
@@ -122,11 +123,14 @@
     <Compile Include="Tables\Imsn1.cs" />
     <Compile Include="Tables\Rcbp3.cs" />
     <Compile Include="Tables\Rcbp1.cs" />
-    <Compile Include="Tms\List_Container.cs" />
-    <Compile Include="Tms\List_Jmjm6.cs" />
-    <Compile Include="Tms\List_JobNo.cs" />
+    <Compile Include="Event\List_Container.cs" />
+    <Compile Include="Event\List_Jmjm6.cs" />
+    <Compile Include="Event\List_JobNo.cs" />
+    <Compile Include="Event\Event_Login.cs" />
+    <Compile Include="Event\Update_Done.cs" />
+    <Compile Include="Tms\Jmjm.cs" />
+    <Compile Include="Tms\Sibl.cs" />
     <Compile Include="Tms\Tms_Login.cs" />
-    <Compile Include="Tms\Update_Done.cs" />
     <Compile Include="Utils\Download.cs" />
     <Compile Include="Utils\Uploading.cs" />
     <Compile Include="Wms\List_Imgi1.cs" />

@@ -6,20 +6,20 @@ using ServiceStack;
 using ServiceStack.ServiceHost;
 using ServiceStack.OrmLite;
 
-namespace WebApi.ServiceModel.Tms
+namespace WebApi.ServiceModel.Event
 {
-				[Route("/tms/login", "Post")]
-				[Route("/tms/login/check", "Get")]
-    public class Tms_Login : IReturn<CommonResponse>
+				[Route("/event/action/list/login", "Post")]
+				[Route("/event/login/check", "Get")]
+    public class Event_Login : IReturn<CommonResponse>
     {
         public string PhoneNumber { get; set; }
         public string CustomerCode { get; set; }
         public string JobNo { get; set; }
     }
-    public class Tms_Login_Logic
+				public class Event_Login_Logic
     {
         public IDbConnectionFactory DbConnectionFactory { get; set; }
-								public int LoginCheck(Tms_Login request) 
+        public int LoginCheck(Event_Login request) 
         {
             int Result = -1;
             try
@@ -39,7 +39,7 @@ namespace WebApi.ServiceModel.Tms
             catch { throw; }
             return Result;
         }
-								public string GetUserInfo(Tms_Login request)
+        public string GetUserInfo(Event_Login request)
         {
             string Result = "";
             try

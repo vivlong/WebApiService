@@ -8,7 +8,7 @@ using ServiceStack.ServiceHost;
 using ServiceStack.OrmLite;
 using WebApi.ServiceModel.Tables;
 
-namespace WebApi.ServiceModel.Tms
+namespace WebApi.ServiceModel.Event
 {
     [Route("/event/action/list/jobno/{PhoneNumber}", "Get")]
 				[Route("/event/action/list/jobno", "Get")] //jobno?PhoneNumber= 

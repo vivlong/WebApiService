@@ -71,12 +71,15 @@ namespace WebApi
             container.RegisterAutoWired<WebApi.ServiceModel.Wms.List_Imgi2_Logic>();
             container.RegisterAutoWired<WebApi.ServiceModel.Wms.List_Imsn1_Logic>();
             container.RegisterAutoWired<WebApi.ServiceModel.Wms.Confirm_Imgr1_Logic>();
-            //TMS
-            container.RegisterAutoWired<WebApi.ServiceModel.Tms.Tms_Login_Logic>();
-            container.RegisterAutoWired<WebApi.ServiceModel.Tms.List_Jmjm6_Logic>();
-            container.RegisterAutoWired<WebApi.ServiceModel.Tms.List_JobNo_Logic>();
-            container.RegisterAutoWired<WebApi.ServiceModel.Tms.Update_Done_Logic>();
-            container.RegisterAutoWired<WebApi.ServiceModel.Tms.List_Container_Logic>();
+												//TMS
+												container.RegisterAutoWired<WebApi.ServiceModel.Tms.Jmjm_Logic>();
+												container.RegisterAutoWired<WebApi.ServiceModel.Tms.Sibl_Logic>();
+            //Event
+            container.RegisterAutoWired<WebApi.ServiceModel.Event.Event_Login_Logic>();
+            container.RegisterAutoWired<WebApi.ServiceModel.Event.List_Jmjm6_Logic>();
+            container.RegisterAutoWired<WebApi.ServiceModel.Event.List_JobNo_Logic>();
+            container.RegisterAutoWired<WebApi.ServiceModel.Event.Update_Done_Logic>();
+            container.RegisterAutoWired<WebApi.ServiceModel.Event.List_Container_Logic>();
             //Freight
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Freight_Login_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Saus_Logic>();

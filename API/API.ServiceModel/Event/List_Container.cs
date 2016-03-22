@@ -7,7 +7,7 @@ using ServiceStack;
 using ServiceStack.ServiceHost;
 using ServiceStack.OrmLite;
 
-namespace WebApi.ServiceModel.Tms
+namespace WebApi.ServiceModel.Event
 {
 				[Route("/event/action/list/container/{PhoneNumber}/{JobNo}", "Get")]
 				[Route("/event/action/list/container", "Get")] //container?PhoneNumber= & JobNo=

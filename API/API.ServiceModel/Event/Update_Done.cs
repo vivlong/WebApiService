@@ -7,7 +7,7 @@ using ServiceStack.ServiceHost;
 using ServiceStack.OrmLite;
 using WebApi.ServiceModel.Tables;
 
-namespace WebApi.ServiceModel.Tms
+namespace WebApi.ServiceModel.Event
 {
     [Route("/event/action/update/done", "Post")]
     public class Update_Done : IReturn<CommonResponse>
