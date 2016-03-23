@@ -17,6 +17,7 @@ namespace WebApi.ServiceModel.Freight
     public class Smct : IReturn<CommonResponse>
 				{
 								public string RecordCount { get; set; }
+								public string TableType { get; set; }
 								public string PartyName { get; set; }
 								public string PortOfLoadingCode { get; set; }
 								public string PortOfDischargeCode { get; set; }
@@ -39,13 +40,32 @@ namespace WebApi.ServiceModel.Freight
 																				int count = int.Parse(request.RecordCount);
 																				string strWhere = "";
 																				string strFilter = "";
+																				if (!string.IsNullOrEmpty(request.TableType))
+																				{
+																								if (string.Equals(request.TableType, "S"))
+																								{
+																												if (strFilter.Length > 0)
+																												{
+																																strFilter = strFilter + " And ";
+																												}
+																												strFilter = strFilter + "  ISNULL(TableType,'') = 'S'";
+																								}
+																								else if (string.Equals(request.TableType, "C") || string.Equals(request.TableType, "SC"))
+																								{
+																												if (strFilter.Length > 0)
+																												{
+																																strFilter = strFilter + " And ";
+																												}
+																												strFilter = strFilter + "  (ISNULL(TableType,'') = 'C' Or ISNULL(TableType,'') = 'SC')";
+																								}																								
+																				}
 																				if (!string.IsNullOrEmpty(request.PartyName))
 																				{
 																								if (strFilter.Length > 0)
 																								{
 																												strFilter = strFilter + " And ";
 																								}
-																								strFilter = strFilter + "  PartyCode = (Select top 1 BusinessPartyCode From Rcbp1 Where BusinessPartyName LIKE '" + request.PartyName + "%')";
+																								strFilter = strFilter + "  PartyCode in (Select BusinessPartyCode From Rcbp1 Where BusinessPartyName LIKE '" + request.PartyName + "%')";
 																				}
 																				if (!string.IsNullOrEmpty(request.PortOfLoadingCode))
 																				{
@@ -53,7 +73,7 @@ namespace WebApi.ServiceModel.Freight
 																								{
 																												strFilter = strFilter + " And ";
 																								}
-																								strFilter = strFilter + " PortOfLoadingCode = (Select top 1 PortCode From Rcsp1 Where PortName LIKE '" + request.PortOfLoadingCode + "%')";
+																								strFilter = strFilter + " PortOfLoadingCode in (Select PortCode From Rcsp1 Where PortName LIKE '" + request.PortOfLoadingCode + "%')";
 																				}
 																				if (!string.IsNullOrEmpty(request.PortOfDischargeCode))
 																				{
@@ -61,7 +81,7 @@ namespace WebApi.ServiceModel.Freight
 																								{
 																												strFilter = strFilter + " And ";
 																								}
-																								strFilter = strFilter + " PortOfDischargeCode = (Select top 1 PortCode From Rcsp1 Where PortName LIKE '" + request.PortOfDischargeCode + "%')";
+																								strFilter = strFilter + " PortOfDischargeCode in (Select PortCode From Rcsp1 Where PortName LIKE '" + request.PortOfDischargeCode + "%')";
 																				}
 																				if (!string.IsNullOrEmpty(request.ModuleCode))
 																				{
@@ -77,7 +97,7 @@ namespace WebApi.ServiceModel.Freight
 																								{
 																												strFilter = strFilter + " And ";
 																								}
-																								strFilter = strFilter + " JobType = (Select top 1 JobType From Jmjt1 Where JobDescription LIKE '" + request.JobType + "%'";
+																								strFilter = strFilter + " JobType in (Select JobType From Jmjt1 Where JobDescription LIKE '" + request.JobType + "%'";
 																				}
 																				if (!string.IsNullOrEmpty(request.EffectiveDate))
 																				{
