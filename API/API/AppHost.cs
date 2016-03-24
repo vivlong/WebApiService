@@ -35,17 +35,17 @@ namespace WebApi
             {
                 DebugMode = false,
                 UseCustomMetadataTemplates = true,
-                DefaultContentType = ContentType.Json,
-																GlobalResponseHeaders = {
-                    { "Access-Control-Allow-Origin", "*" },
-                    { "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
-                    { "Access-Control-Allow-Headers", "Content-Type, Signature" }
-                },
+                //DefaultContentType = ContentType.Json,
+																//GlobalResponseHeaders = {
+                //    { "Access-Control-Allow-Origin", "*" },
+                //    { "Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS" },
+                //    { "Access-Control-Allow-Headers", "Content-Type, Signature" }
+                //},
                 EnableFeatures = Feature.Json | Feature.Metadata
                 //ServiceStackHandlerFactoryPath  = "api"                
             });
-            //CorsFeature cf = new CorsFeature(allowedOrigins: "*", allowedMethods: "GET, POST, PUT, DELETE, OPTIONS", allowedHeaders: "Content-Type, Signature", allowCredentials: false);
-            //this.Plugins.Add(cf);
+            CorsFeature cf = new CorsFeature(allowedOrigins: "*", allowedMethods: "GET, POST, PUT, DELETE, OPTIONS", allowedHeaders: "Content-Type, Signature", allowCredentials: false);
+            this.Plugins.Add(cf);
             this.Plugins.Add(new SwaggerFeature());
             //DB
 												var dbConnectionFactory = new OrmLiteConnectionFactory(GetConnectionString("Freight"), SqlServerDialect.Provider)
@@ -63,7 +63,8 @@ namespace WebApi
             //Auth
             container.RegisterAutoWired<WebApi.ServiceModel.Auth>();
             //WMS
-            container.RegisterAutoWired<WebApi.ServiceModel.Wms.Wms_Login_Logic>();
+												container.RegisterAutoWired<WebApi.ServiceModel.Wms.Wms_Login_Logic>();
+												container.RegisterAutoWired<WebApi.ServiceModel.Wms.List_Rcbp1_Logic>();
             container.RegisterAutoWired<WebApi.ServiceModel.Wms.List_Imgr1_Logic>();
             container.RegisterAutoWired<WebApi.ServiceModel.Wms.List_Impr1_Logic>();
             container.RegisterAutoWired<WebApi.ServiceModel.Wms.List_Imgr2_Logic>();
@@ -90,8 +91,6 @@ namespace WebApi
             container.RegisterAutoWired<WebApi.ServiceModel.Freight.Rcvy_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.Tracking_Logic>();
 												container.RegisterAutoWired<WebApi.ServiceModel.Freight.ViewPDF_Logic>();
-            //Common
-												container.RegisterAutoWired<WebApi.ServiceModel.Wms.List_Rcbp1_Logic>();
         }
         #region DES
         //private string DESKey = "F322186F";

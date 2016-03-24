@@ -9,6 +9,7 @@ using ServiceStack.OrmLite;
 namespace WebApi.ServiceModel.Wms
 {
     [Route("/wms/action/list/login", "Post")]
+				[Route("/wms/login/check", "Get")]
     public class Wms_Login : IReturn<CommonResponse>
     {
         public string UserId { get; set; }

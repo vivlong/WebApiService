@@ -78,7 +78,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\ListService.cs" />
     <Compile Include="Freight\PdfService.cs" />
     <Compile Include="Freight\TableService.cs" />
     <Compile Include="Freight\LoginService.cs" />
@@ -88,7 +87,7 @@
     <Compile Include="Tms\LoginService.cs" />
     <Compile Include="Tms\TableService.cs" />
     <Compile Include="Wms\ConfirmService.cs" />
-    <Compile Include="Wms\ListService.cs" />
+    <Compile Include="Wms\TableService.cs" />
     <Compile Include="ApiServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wms\LoginService.cs" />

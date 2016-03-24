@@ -10,8 +10,8 @@ using WebApi.ServiceModel.Tables;
 
 namespace WebApi.ServiceModel.Wms
 {
-    [Route("/wms/action/list/rcbp1", "Get")]
-    [Route("/wms/action/list/rcbp1/{BusinessPartyName}", "Get")]
+				//[Route("/wms/rcbp1/sps", "Get")]				//sps?RecordCount= & BusinessPartyName=
+				[Route("/wms/rcbp1", "Get")]								//rcbp1?BusinessPartyName= &TrxNo=			
     public class List_Rcbp1 : IReturn<CommonResponse>
     {
         public string TrxNo { get; set; }

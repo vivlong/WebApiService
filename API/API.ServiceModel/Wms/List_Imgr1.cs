@@ -13,6 +13,7 @@ namespace WebApi.ServiceModel.Wms
     [Route("/wms/action/list/imgr1/{CustomerCode}", "Get")]
     [Route("/wms/action/list/imgr1/grn/", "Get")]
     [Route("/wms/action/list/imgr1/grn/{GoodsReceiptNoteNo}", "Get")]
+				[Route("/wms/imgr1", "Get")]				//imgr1?GoodsReceiptNoteNo= & CustomerCode=
     public class List_Imgr1 : IReturn<CommonResponse>
     {
         public string CustomerCode { get; set; }

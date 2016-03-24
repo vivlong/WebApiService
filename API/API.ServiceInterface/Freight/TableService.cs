@@ -92,31 +92,31 @@ namespace WebApi.ServiceInterface.Freight
         {
             if (auth.AuthResult(token, uri))
             {
-																if (uri.IndexOf("/rcbp1/sps") > 0)
+																if (uri.IndexOf("/freight/rcbp1/sps") > 0)
 																{
 																				ecr.data.results = logic.Get_Rcbp1_SpsList(request);
 																}
-																else if (uri.IndexOf("/rcbp1/read") > 0)
+																else if (uri.IndexOf("/freight/rcbp1/read") > 0)
 																{
 																				ecr.data.results = logic.Get_Rcbp1_List(request);
 																}
-																else if (uri.IndexOf("/rcbp1/update") > 0)
+																else if (uri.IndexOf("/freight/rcbp1/update") > 0)
 																{
 																				ecr.data.results = logic.Update_Rcbp1(request);
 																}
-																else if (uri.IndexOf("/rcbp3/read") > 0)
+																else if (uri.IndexOf("/freight/rcbp3/read") > 0)
 																{
 																				ecr.data.results = logic.Read_Rcbp3_List(request);
 																}
-																else if (uri.IndexOf("/rcbp3/create") > 0)
+																else if (uri.IndexOf("/freight/rcbp3/create") > 0)
 																{
 																				ecr.data.results = logic.Insert_Rcbp3(request);
 																}
-																else if (uri.IndexOf("/rcbp3/update") > 0)
+																else if (uri.IndexOf("/freight/rcbp3/update") > 0)
 																{
 																				ecr.data.results = logic.Update_Rcbp3(request);
 																}
-																else if (uri.IndexOf("/rcbp3/delete") > 0)
+																else if (uri.IndexOf("/freight/rcbp3/delete") > 0)
 																{
 																				ecr.data.results = logic.Delete_Rcbp3(request);
 																}

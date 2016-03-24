@@ -7,13 +7,30 @@ using WebApi.ServiceModel.Wms;
 
 namespace WebApi.ServiceInterface.Wms
 {
-    public class ListService
+    public class TableService
     {
         private class job
         {
             public string JobNo { get; set; }
             public string ContainerCounts { get; set; }
         }
+								public void List_Rcbp1(Auth auth, List_Rcbp1 request, List_Rcbp1_Logic list_Rcbp1_Logic, CommonResponse ecr, string[] token, string uri)
+								{
+												if (auth.AuthResult(token, uri))
+												{
+																if (uri.IndexOf("/wms/rcbp1") > 0)
+																{
+																				ecr.data.results = list_Rcbp1_Logic.GetList(request);
+																}
+																ecr.meta.code = 200;
+																ecr.meta.message = "OK";
+												}
+												else
+												{
+																ecr.meta.code = 401;
+																ecr.meta.message = "Unauthorized";
+												}
+								}
         public void List_Imgr1(Auth auth, List_Imgr1 request, List_Imgr1_Logic list_Imgr1_Logic, CommonResponse ecr, string[] token, string uri)
         {
             if (auth.AuthResult(token, uri))
