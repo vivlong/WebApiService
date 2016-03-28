@@ -10,6 +10,7 @@ using WebApi.ServiceModel.Tables;
 
 namespace WebApi.ServiceModel.Wms
 {
+				[Route("/wms/imsn1", "Get")]				//imsn1?GoodsIssueNoteNo=
     [Route("/wms/action/list/imsn1/{GoodsIssueNoteNo}", "Get")]
     public class List_Imsn1 : IReturn<CommonResponse>
     {

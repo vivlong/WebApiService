@@ -9,6 +9,7 @@ using ServiceStack.OrmLite;
 
 namespace WebApi.ServiceModel.Wms
 {
+				[Route("/wms/imgi2", "Get")]				//imgi2?GoodsIssueNoteNo=
     [Route("/wms/action/list/imgi2/{GoodsIssueNoteNo}", "Get")]
     public class List_Imgi2 : IReturn<CommonResponse>
     {

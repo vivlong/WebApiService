@@ -10,6 +10,8 @@ using WebApi.ServiceModel.Tables;
 
 namespace WebApi.ServiceModel.Wms
 {
+
+				[Route("/wms/imgi1", "Get")]				//imgi1?GoodsIssueNoteNo= & CustomerCode=
     [Route("/wms/action/list/imgi1/{CustomerCode}", "Get")]
     [Route("/wms/action/list/imgi1/gin/", "Get")]
     [Route("/wms/action/list/imgi1/gin/{GoodsIssueNoteNo}", "Get")]
